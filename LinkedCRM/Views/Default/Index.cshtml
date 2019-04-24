@@ -1,0 +1,31 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="spacer5"></div>
+@using (Html.BeginForm("Index", "Default", FormMethod.Get))
+{ <div class="container">
+       <div class="row">
+           <div class="col-lg-offset-2 col-lg-3">@Html.TextBox("Search") <input type="submit" value="Search" /><div class="spacer5"></div></div>
+          
+           <div class="col-lg-offset-4 col-lg-1">Assignment</div>
+
+       </div>
+        <div calss="row">
+            <div class="col-lg-3 text-center text-right"> @Html.RadioButton("Customer", "Lead",true) Lead</div>
+            <div class="col-lg-3 text-center">@Html.RadioButton("Customer", "Customer") Customer</div>
+            <div class="col-lg-3 text-right"> @Html.RadioButton("Assigning", "Yes",true) Yes</div>
+            <div class="col-lg-3 text-center">@Html.RadioButton("Assigning", "No") No</div>
+
+
+        </div>
+      
+    </div>
+    
+
+    @Html.Partial(ViewData["_partialview"] as string)
+
+
+}

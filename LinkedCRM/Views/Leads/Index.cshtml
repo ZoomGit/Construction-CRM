@@ -1,0 +1,371 @@
+﻿@model LinkedCRM.Models.LeadViewModel
+
+@{
+    ViewBag.Title = "Index";
+  
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+}
+
+@{var db = new LinkedCRM.Models.ApplicationDbContext(); }
+
+<script type="text/javascript" language="javascript">
+
+
+    $(function () {
+        var DeleteMany = new Array();
+        var AssginMany = new Array();
+        var SingleAssgin = new Array();
+        $("#CheckAll").click(function () {
+            $("input[name='LeadsToDelete']").prop("checked",$(this).prop("checked"))
+
+        });
+
+        $("input[name='LeadsToDelete']").click(function () {
+            if ($("input[name='LeadsToDelete']").length == $("input[name='LeadsToDelete']:checked").length) {
+                $("#CheckAll").prop("checked","checked")
+            }
+            else {
+                $("#CheckAll").removeAttr("checked");
+            }
+        });
+
+        //assign
+       
+     
+
+        $("#SaveForAssignMany").click(function () {
+           
+        
+         
+            if($("input[name='LeadsToDelete']:checked").length >= 1) {
+                $("input[name='LeadsToDelete']").each(function () {
+                    if ($(this).prop("checked")) {
+                        AssginMany.push($(this).val());
+                    }
+                });
+            
+               
+
+                var employeeid = $("#dropdownlistitemvalue").val();
+
+
+                //ajaax call for assign
+                var option = {};
+
+                option.url = "/Default/Assign?emp=" + employeeid;
+                option.type = "POST";
+                option.data = JSON.stringify(AssginMany);
+                option.contentType = "application/json";
+                option.dataType = "json";
+                option.success = function (msg) {
+                    alert(msg);
+                };
+                //option.error = function () {
+                //    alert("Error while Assigning !");
+                //};
+                $.ajax(option);
+
+            }
+            else if ($("input[name='LeadsToDelete']:checked").length < 1) {
+
+                alert("no lead selected");
+            }
+
+            
+        });
+
+
+        //ReAssign
+
+        //$("#SaveForReAssign").click(function () {
+
+        //    var SingleAssign=0;
+        //    arr1.push($(this).val());
+                    
+        //    var employeeid = $("#dropdownlistitemvalue").val();
+
+
+        //    //ajaax call for assign
+        //    var option = {};
+
+        //    option.url = "/Default/Assign?emp=" + employeeid;
+        //    option.type = "POST";
+        //    option.data = JSON.stringify(arr1);
+        //    option.contentType = "application/json";
+        //    option.dataType = "json";
+        //    option.success = function (msg) {
+        //        alert(msg);
+        //    };
+        //    //option.error = function () {
+        //    //    alert("Error while Assigning !");
+        //    //};
+        //    $.ajax(option);
+
+        
+        //}
+        // );
+
+
+
+              
+            
+            
+
+
+      
+
+       //cancel
+        $("#Cancel").click(function () {
+            $("input[name='LeadsToDelete']").removeAttr("checked");
+            $("#CheckAll").removeAttr("checked");
+
+        });
+
+
+
+
+        //delete
+        $("#delete").click(function () {
+
+
+            $("input[name='LeadsToDelete']").each(function () {
+                if ($(this).prop("checked")) {
+                    DeleteMany.push($(this).val());
+                }
+            });
+
+
+
+            //ajaax call for delete
+            var options = {};
+            options.url = "/Default/Delete";
+            options.type = "POST";
+            options.data = JSON.stringify(DeleteMany);
+            options.contentType = "application/json";
+            options.dataType = "json";
+            options.success = function (msg) {
+                alert(msg);
+            };
+            //options.error = function () {
+            //    alert("Error while deleting the records!");
+            //};
+            $.ajax(options);
+
+
+        });
+
+
+
+    });
+
+</script>
+
+<hr />
+
+<div class="container">
+
+    <div class="row">
+        <div class="col-lg-6">
+
+            <button class="btn btn-primary" type="button" data-toggle="modal" data-target="#AssignMany"id="assign">Assign</button>
+            <button class="btn btn-primary" type="button" id="Cancel">Cancel</button>
+            <button class="btn btn-primary" type="button" id="delete">Delete</button>
+
+
+
+        </div>
+        <div class="col-lg-4 col-lg-offset-2"><button class="btn btn-primary" type="button" onclick="location.href='@Url.Action("Create", "Leads")'">ADD</button></div>
+
+    </div>
+    <div class="spacer5"></div>
+    <div class="row">
+        <div class="col-lg-2 text-center">Select All</div>
+        <div class="col-lg-4"><input type="checkbox" id="CheckAll" /></div>
+    </div>
+</div>
+<div class="spacer5"></div>
+
+<table class="table">
+    <tr>
+        <th>
+
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Lead.Contact.FirstName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Lead.Employee.EmployeeFirstName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Lead.Name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Lead.LeadStatus)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Lead.LeadSource)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Lead.SourceInfo)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Lead.Currency)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Lead.Opportunity)
+        </th>
+
+
+        <th></th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model.LeadList)
+    {
+        <tr>
+            <td>
+                <input type="checkbox" id="LeadsToDelete" name="LeadsToDelete" value="@item.LeadId" />
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Contact.FirstName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Employee.EmployeeFirstName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.LeadStatus)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.LeadSource)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.SourceInfo)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Currency)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Opportunity)
+            </td>
+
+            @{ var cust = ViewData["Customer"];
+                var assign = ViewData["assgining"];
+            }
+            <td>
+                <div class="container">
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <button class="btn btn-info btn-primary" type="button" onclick="location.href='@Url.Action("Create", "Activities", new { id = item.LeadId })'"><span class="glyphicon glyphicon-plus"></span>Activity</button>
+                            <button class="btn btn-info btn-primary" type="button" onclick="location.href='@Url.Action("Create", "Schedules", new { id = item.LeadId ,customer=cust,emp=item.EmployeeId})'"><span class="glyphicon glyphicon-plus"></span>Schedule</button>
+                            <button class="btn btn-primary" type="button" onclick="location.href='@Url.Action("Details", "Leads", new { id = item.LeadId })'">Details</button>
+                            @*<button class="btn btn-primary" type="button" onclick="location.href='@Url.Action("Assign", "Default", new { id = item.LeadId })'">Assign</button>*@
+                            @*<button class="btn btn-primary" type="button" onclick="window.open('@Url.Action("Assign", "Default")')">Assign</button>*@
+                            @if (ViewData["assigning"] == "No")
+                            {
+                                <button class="btn btn-info btn-primary" type="button" id="singleassign" value="@item.LeadId" data-toggle="modal" data-target="#Assign">Assign </button>
+                            }
+                            else
+                            {
+                                <button class="btn btn-info btn-primary" type="button" id="singleReassign" value="@item.LeadId" data-toggle="modal" data-target="#ReAssign">ReAssign </button>
+                            }
+                        </div>
+                    </div>
+                </div>
+
+
+            </td>
+        </tr>
+                }
+
+</table>
+@*assign many leads*@
+@using (Html.BeginForm("Assign", "Default", FormMethod.Post))
+{
+<div class="container">
+    <div class="row">
+        <div class="col-lg-12">
+
+            <div class="modal fade" id="AssignMany" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLongTitle">Select Employee</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.Lead.EmployeeId, "Employees", htmlAttributes: new { @class = "control-label col-md-2" })
+                                <div class="col-md-10">
+                                    @Html.DropDownList("Employee", new SelectList(db.Employees, "EmployeeId", "EmployeeFirstName"), htmlAttributes: new { @class = "form-control",@id="dropdownlistitemvalue"})
+                                    @Html.ValidationMessageFor(model => model.Employee.EmployeeId, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+
+                            
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                            <button data-dismiss="modal" id="SaveForAssignMany"class="btn btn-primary" >Save</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+
+        </div>
+    </div>
+</div>
+
+}
+
+@*reassign*@
+@using (Html.BeginForm("Assign", "Default", FormMethod.Post))
+{
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+
+                <div class="modal fade" id="ReAssign" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLongTitle">Select Employee</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.Lead.EmployeeId, "Employees", htmlAttributes: new { @class = "control-label col-md-2" })
+                                    <div class="col-md-10">
+                                        @Html.DropDownList("Employee", new SelectList(db.Employees, "EmployeeId", "EmployeeFirstName"), htmlAttributes: new { @class = "form-control", @id = "dropdownlistitemvalue" })
+                                        @Html.ValidationMessageFor(model => model.Employee.EmployeeId, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+
+
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                <button data-dismiss="modal" id="SaveForReAssign" class="btn btn-primary">Save</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+
+            </div>
+        </div>
+    </div>
+
+}

@@ -1,0 +1,317 @@
+﻿@model LinkedCRM.Models.Lead
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Details</h2>
+
+<div class="container>
+    <div class="row">
+        <div class="col-lg-4">
+            <h4>Lead basic Information</h4>
+        </div>
+        <div class="col-lg-4">
+            <button class="btn btn-primary" type="button" onclick="location.href='@Url.Action("Edit", new { id = Model.LeadId })'">Edit</button>
+            <button class="btn btn-primary" type="button" onclick="location.href='@Url.Action("Delete", new { id = Model.LeadId })'">Delete</button>
+            <button class="btn btn-primary" type="button" onclick="location.href='@Url.Action("Assign", new { id = Model.LeadId })'">Assign</button>
+        </div>
+        <div class="col-lg-4">
+
+        </div>
+    </div>
+
+</div>
+<hr />
+<div class="container ">
+
+    <div calss="row ">
+        <div class="col-lg-2">@Html.DisplayNameFor(model => model.Contact.FirstName)</div>
+        <div class="col-lg-2">@Html.DisplayFor(model => model.Contact.FirstName)</div>
+        <div class="col-lg-2">@Html.DisplayNameFor(model => model.Employee.EmployeeFirstName)</div>
+        <div class="col-lg-2">@Html.DisplayFor(model => model.Employee.EmployeeFirstName)</div>
+        <div class="col-lg-2">@Html.DisplayNameFor(model => model.Name)</div>
+        <div class="col-lg-2">@Html.DisplayFor(model => model.Name)</div>
+    </div>
+    <div class="spacer5"></div>
+    <div calss="row ">
+        <div class="col-lg-2">@Html.DisplayNameFor(model => model.LeadStatus)</div>
+        <div class="col-lg-2">@Html.DisplayFor(model => model.LeadStatus)</div>
+        <div class="col-lg-2">@Html.DisplayNameFor(model => model.LeadSource)</div>
+        <div class="col-lg-2">@Html.DisplayFor(model => model.LeadSource)</div>
+        <div class="col-lg-2">@Html.DisplayNameFor(model => model.SourceInfo)</div>
+        <div class="col-lg-2">@Html.DisplayFor(model => model.SourceInfo)</div>
+    </div>
+    <div class="spacer5"></div>
+    <div calss="row ">
+        <div class="col-lg-4">@Html.DisplayNameFor(model => model.Currency)</div>
+        <div class="col-lg-4">@Html.DisplayFor(model => model.Currency)</div>
+        <div class="col-lg-4">@Html.DisplayNameFor(model => model.Opportunity)</div>
+        <div class="col-lg-4">@Html.DisplayFor(model => model.Opportunity)</div>
+        
+        
+    </div>
+
+
+
+</div>
+<hr />
+@if (Model.Contact == null)
+{ <p>No contact </p>}
+else
+{
+<div class="container">
+    <div class="row">
+        <div class="col-sm-8">
+            <h4>Contact info</h4>
+        </div>
+        <div class="col-sm-4">
+            <button class="btn btn-primary" type="button" onclick="location.href='@Url.Action("Edit", "Contacts", new { id = Model.Contact.ContactId })'">Edit</button>
+            <button class="btn btn-primary" type="button" onclick="location.href='@Url.Action("Delete", "Contacts", new { id = Model.Contact.ContactId })'">Delete</button>
+            <button class="btn btn-primary" type="button" onclick="location.href='@Url.Action("Create", "Contacts")'">Add</button>
+        </div>
+
+
+    </div>
+
+</div>
+<hr />
+<div class="container">
+
+    <div calss="row ">
+        <div class="col-lg-2">@Html.DisplayNameFor(model => model.Contact.FirstName)</div>
+        <div class="col-lg-2">@Html.DisplayFor(model => model.Contact.FirstName)</div>
+        <div class="col-lg-2">@Html.DisplayNameFor(model => model.Contact.LastName)</div>
+        <div class="col-lg-2">@Html.DisplayFor(model => model.Contact.LastName)</div>
+        <div class="col-lg-2">@Html.DisplayNameFor(model => model.Contact.BirthDate)</div>
+        <div class="col-lg-2">@Html.DisplayFor(model => model.Contact.BirthDate)</div>
+    </div>
+    <div class="spacer5"></div>
+    <div calss="row ">
+        <div class="col-lg-2">@Html.DisplayNameFor(model => model.Contact.Site)</div>
+        <div class="col-lg-2">@Html.DisplayFor(model => model.Contact.Site)</div>
+        <div class="col-lg-2">@Html.DisplayNameFor(model => model.Contact.Phone)</div>
+        <div class="col-lg-2">@Html.DisplayFor(model => model.Contact.Phone)</div>
+        <div class="col-lg-2">@Html.DisplayNameFor(model => model.Contact.Messenger)</div>
+        <div class="col-lg-2">@Html.DisplayFor(model => model.Contact.Messenger)</div>
+    </div>
+    <div class="spacer5"></div>
+    <div calss="row ">
+        <div class="col-lg-4">@Html.DisplayNameFor(model => model.Contact.CompanyName)</div>
+        <div class="col-lg-4">@Html.DisplayFor(model => model.Contact.CompanyName)</div>
+        <div class="col-lg-4">@Html.DisplayNameFor(model => model.Contact.Country)</div>
+        <div class="col-lg-4">@Html.DisplayFor(model => model.Contact.Country)</div>
+        <div class="col-lg-4">@Html.DisplayNameFor(model => model.Contact.Position) </div>
+        <div class="col-lg-4">@Html.DisplayFor(model => model.Contact.Position)</div>
+
+
+    </div>
+    <div class="spacer5"></div>
+    <div calss="row ">
+        <div class="col-lg-4">@Html.DisplayNameFor(model => model.Contact.City)</div>
+        <div class="col-lg-4">@Html.DisplayFor(model => model.Contact.City)</div>
+        <div class="col-lg-4">@Html.DisplayNameFor(model => model.Contact.Region)</div>
+        <div class="col-lg-4">@Html.DisplayFor(model => model.Contact.Region)</div>
+        <div class="col-lg-4">@Html.DisplayNameFor(model => model.Contact.Zip)</div>
+        <div class="col-lg-4">@Html.DisplayFor(model => model.Contact.Zip)</div>
+
+
+    </div>
+
+
+</div>
+}
+<hr />
+@*schedule details*@
+
+@if (Model.Schedules.Count == 0)
+            {<p>No Schudel For That Lead .</p> }
+            else
+            {
+                foreach (var item in Model.Schedules.ToList())
+                {
+
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-8">
+                    <h4>Schudel Inof</h4>
+                </div>
+                <div class="col-sm-4">
+                    <button class="btn btn-primary" type="button" onclick="location.href='@Url.Action("Edit","Schedules",new { id = item.ScheduleId })'">Edit</button>
+                    <button class="btn btn-primary" type="button" onclick="location.href='@Url.Action("Delete","Schedules" ,new { id = item.ScheduleId})'">Delete</button>
+                    <button class="btn btn-primary" type="button" onclick="location.href='@Url.Action("Create","Schedules")'">Add</button>
+                </div>
+
+
+            </div>
+
+        </div>
+                    <div class="spacer5"></div>
+
+                    <div class="container">
+
+                        <div calss="row ">
+                            <div class="col-lg-2">@Html.DisplayNameFor(model => model.Name)</div>
+                            <div class="col-lg-2">@Html.DisplayFor(r => @item.Lead.Name)</div>
+                            <div class="col-lg-2">@Html.DisplayNameFor(r => item.Customer.Name)</div>
+                            <div class="col-lg-2">@Html.DisplayFor(r => @item.Customer.Name)</div>
+                            <div class="col-lg-2">@Html.DisplayNameFor(model => model.Employee.EmployeeFirstName)</div>
+                            <div class="col-lg-2">@Html.DisplayFor(r => @item.Employee.EmployeeFirstName)</div>
+                        </div>
+                        <div class="spacer5"></div>
+                        <div calss="row ">
+                            <div class="col-lg-2">@Html.DisplayNameFor(r => @item.ScheduleType)</div>
+                            <div class="col-lg-2">@Html.DisplayFor(r => @item.ScheduleType)</div>
+                            <div class="col-lg-2">@Html.DisplayNameFor(r => @item.Subject)</div>
+                            <div class="col-lg-2">@Html.DisplayFor(r => @item.Subject)</div>
+                            <div class="col-lg-2">@Html.DisplayNameFor(r => @item.Description)</div>
+                            <div class="col-lg-2">@Html.DisplayFor(r => @item.Description)</div>
+                        </div>
+                        <div class="spacer5"></div>
+                        <div calss="row ">
+                            <div class="col-lg-2">@Html.DisplayNameFor(r => @item.ScheduleDateAndTime)</div>
+                            <div class="col-lg-2">@Html.DisplayFor(r => @item.ScheduleDateAndTime)</div>
+                            <div class="col-lg-2">@Html.DisplayNameFor(r => @item.Duration)</div>
+                            <div class="col-lg-2">@Html.DisplayFor(r => @item.Duration)</div>
+                            <div class="col-lg-2">@Html.DisplayNameFor(r => @item.CallType)</div>
+                            <div class="col-lg-2">@Html.DisplayFor(r => @item.CallType)</div>
+
+
+                        </div>
+                        <div class="spacer5"></div>
+                        <div calss="row ">
+                            <div class="col-lg-2">@Html.DisplayNameFor(r => @item.Location)</div>
+                            <div class="col-lg-2">@Html.DisplayFor(r => @item.Location)</div>
+                            <div class="col-lg-2">@Html.DisplayNameFor(r => @item.Attendees)</div>
+                            <div class="col-lg-2">@Html.DisplayFor(r => @item.Attendees)</div>
+                            <div class="col-lg-2"></div>
+                            <div class="col-lg-2"></div>
+
+
+                        </div>
+
+
+                    </div>
+                    <div class="spacer5"></div>
+
+
+
+    }
+
+
+}
+@*Activity details*@
+<h4>Activity Information</h4>
+<hr />
+@if (Model.Activities.Count == 0)
+            {
+    <p>No Activity For That Lead .</p>
+}
+else
+{
+    foreach (var item in Model.Activities.ToList())
+    {
+
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-8">
+                    <h4>Activity Inof</h4>
+                </div>
+                <div class="col-sm-4">
+                    <button class="btn btn-primary" type="button" onclick="location.href='@Url.Action("Edit","Activities",new { id = item.ActivityId })'">Edit</button>
+                    <button class="btn btn-primary" type="button" onclick="location.href='@Url.Action("Delete","Activities" ,new { id = item.ActivityId})'">Delete</button>
+                    <button class="btn btn-primary" type="button" onclick="location.href='@Url.Action("Create","Activities")'">Add</button>
+                </div>
+
+
+            </div>
+
+        </div>
+                    <div class="spacer5"></div>
+                    <div class="container"
+
+            <div calss="row ">
+                <div class="col-lg-2">@Html.DisplayNameFor(model => item.Lead.Name)</div>
+                <div class="col-lg-2">@Html.DisplayFor(r => @item.Lead.Name)</div>
+                <div class="col-lg-2">@Html.DisplayNameFor(r => @item.Employee.EmployeeFirstName)</div>
+                <div class="col-lg-2">@Html.DisplayFor(r => @item.Employee.EmployeeFirstName)</div>
+                <div class="col-lg-2">@Html.DisplayNameFor(model => @item.ActivityType)</div>
+                <div class="col-lg-2">@Html.DisplayFor(r => @item.ActivityType)</div>
+            </div>
+            <div class="spacer5"></div>
+            <div calss="row ">
+                <div class="col-lg-2">@Html.DisplayNameFor(r => @item.ActivityDate)</div>
+                <div class="col-lg-2">@Html.DisplayFor(r => @item.ActivityDate)</div>
+                <div class="col-lg-2">@Html.DisplayNameFor(r => @item.Notes)</div>
+                <div class="col-lg-2">@Html.DisplayFor(r => @item.Notes)</div>
+
+            </div>
+       <div/>
+
+
+
+
+
+    }
+}
+    @*quote details*@
+          <h4>Quote Information</h4>
+          <hr />
+          @if (Model.Quotes.Count == 0)
+          {
+              <p>No Quotes For That Lead .</p>
+          }
+          else
+          {
+              foreach (var item in Model.Quotes.ToList())
+              {
+
+                  <div class="container">
+                      <div class="row">
+                          <div class="col-sm-8">
+                              <h4>Quote Inof</h4>
+                          </div>
+                          <div class="col-sm-4">
+                              <button class="btn btn-primary" type="button" onclick="location.href='@Url.Action("Edit","Quotes",new { id = item.QuoteId })'">Edit</button>
+                              <button class="btn btn-primary" type="button" onclick="location.href='@Url.Action("Delete", "Quotes", new { id = item.QuoteId })'">Delete</button>
+                              <button class="btn btn-primary" type="button" onclick="location.href='@Url.Action("Create", "Quotes")'">Add</button>
+                          </div>
+
+
+                      </div>
+
+                  </div>
+                <div class="spacer5"></div>
+                  <div class="container"
+
+            <div calss="row ">
+                <div class="col-lg-2">@Html.DisplayNameFor(model => item.QuoteStatus)</div>
+                <div class="col-lg-2">@Html.DisplayFor(r => @item.QuoteStatus)</div>
+                <div class="col-lg-2">@Html.DisplayNameFor(r => @item.Employee.EmployeeFirstName)</div>
+                <div class="col-lg-2">@Html.DisplayFor(r => @item.Employee.EmployeeFirstName)</div>
+                <div class="col-lg-2">@Html.DisplayNameFor(model => @item.CreatedOn)</div>
+                <div class="col-lg-2">@Html.DisplayFor(r => @item.CreatedOn)</div>
+            </div>
+            <div class="spacer5"></div>
+            <div calss="row ">
+                <div class="col-lg-2">@Html.DisplayNameFor(r => @item.Lead.Name)</div>
+                <div class="col-lg-2">@Html.DisplayFor(r => @item.Lead.Name)</div>
+                <div class="col-lg-2">@Html.DisplayNameFor(r => @item.currency)</div>
+                <div class="col-lg-2">@Html.DisplayFor(r => @item.currency)</div>
+                <div class="col-lg-2">@Html.DisplayNameFor(r => @item.Total)</div>
+                <div class="col-lg-2">@Html.DisplayFor(r => @item.Total)</div>
+            </div>
+       <div/>
+
+
+
+
+                  @*foreach(var pro in item.Products.ToList())
+                  {
+                      <ul>
+                          <li>@pro.description</li>
+                      </ul>
+                  }*@
+              }
+          }
